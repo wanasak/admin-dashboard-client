@@ -204,7 +204,11 @@ const Sidebar = ({
           </Box>
           <Box>
             <Divider />
-            <FlexBetween gap='1rem' textTransform='none' m='1.5rem 2rem 0 3rem'>
+            <FlexBetween
+              gap='1rem'
+              textTransform='none'
+              m='1.5rem 2rem 1.5rem 3rem'
+            >
               <Box
                 component='img'
                 src={profileImage}
