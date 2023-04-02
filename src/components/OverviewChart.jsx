@@ -42,7 +42,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
     )
 
     return [[totalSalesLine], [totalUnitsLine]]
-  }, [data, theme.palette.secondary])
+  }, [data]) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!data || isLoading) return 'Loading...'
 
@@ -72,24 +72,28 @@ const OverviewChart = ({ isDashboard = false, view }) => {
           },
         },
         legends: {
-          text: { fill: theme.palette.secondary[200] },
+          text: {
+            fill: theme.palette.secondary[200],
+          },
         },
         tooltip: {
           container: {
-            color: theme.palette.grey[900],
+            color: theme.palette.primary.main,
           },
         },
       }}
-      margin={{ top: 50, right: 110, bottom: 50, left: 70 }}
+      margin={{ top: 20, right: 50, bottom: 50, left: 70 }}
       xScale={{ type: 'point' }}
       yScale={{
         type: 'linear',
         min: 'auto',
         max: 'auto',
-        stacked: true,
+        stacked: false,
         reverse: false,
       }}
+      yFormat=' >-.2f'
       curve='catmullRom'
+      enableArea={isDashboard}
       axisTop={null}
       axisRight={null}
       axisBottom={{
@@ -107,12 +111,13 @@ const OverviewChart = ({ isDashboard = false, view }) => {
       }}
       axisLeft={{
         orient: 'left',
+        tickValues: 5,
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
         legend: isDashboard
           ? ''
-          : `Total ${view === 'sales' ? 'Revenue' : 'Units'}`,
+          : `Total ${view === 'sales' ? 'Revenue' : 'Units'} for Year`,
         legendOffset: -60,
         legendPosition: 'middle',
       }}
@@ -132,7 +137,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
                 direction: 'column',
                 justify: false,
                 translateX: 30,
-                translateY: 0,
+                translateY: -40,
                 itemsSpacing: 0,
                 itemDirection: 'left-to-right',
                 itemWidth: 80,
